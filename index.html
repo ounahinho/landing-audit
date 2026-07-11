@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simo — Landing page redesigns for indie founders</title>
+<meta name="description" content="I redesign landing pages for indie founders. First audit: $10.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #ffffff;
+    --bg-soft: #F5F3FF;
+    --ink: #14121F;
+    --ink-soft: #8B87A0;
+    --accent: #6C4CF1;
+    --accent-dark: #4E31D6;
+    --lime: #C6FF4D;
+    --line: #E4E1F5;
+    --radius: 14px;
+    --maxw: 1040px;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1,h2,h3, .logo, .price{
+    font-family: 'Space Grotesk', sans-serif;
+    letter-spacing: -0.02em;
+  }
+  .mono{ font-family: 'JetBrains Mono', monospace; }
+
+  a{ color: inherit; }
+  img{ max-width:100%; display:block; }
+
+  .wrap{ max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
+
+  :focus-visible{
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  /* NAV */
+  nav.wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    padding-top: 28px; padding-bottom: 28px;
+  }
+  .logo{ font-size: 1.15rem; font-weight: 700; }
+  .logo span{ color: var(--accent); }
+  .nav-links{ display:flex; align-items:center; gap: 28px; font-size: 0.95rem; }
+  .nav-links a:not(.btn){ color: var(--ink-soft); text-decoration:none; }
+  .nav-links a:not(.btn):hover{ color: var(--ink); }
+
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    background: var(--ink);
+    color: #fff;
+    border: none;
+    padding: 12px 22px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration:none;
+    cursor:pointer;
+    transition: transform .15s ease, background .15s ease;
+  }
+  .btn:hover{ background: var(--accent-dark); transform: translateY(-1px); }
+  .btn-lime{ background: var(--lime); color: var(--ink); }
+  .btn-lime:hover{ background: #b6f02f; }
+  .btn-outline{
+    background: transparent; color: var(--ink);
+    border: 1.5px solid var(--line);
+  }
+  .btn-outline:hover{ border-color: var(--accent); background: var(--bg-soft); }
+
+  /* HERO */
+  .hero{ padding: 56px 0 72px; }
+  .eyebrow{
+    display:inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent-dark);
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    padding: 6px 12px;
+    border-radius: 999px;
+    margin-bottom: 22px;
+  }
+  .hero h1{
+    font-size: clamp(2.1rem, 5vw, 3.4rem);
+    font-weight: 700;
+    line-height: 1.08;
+    max-width: 15ch;
+    margin: 0 0 20px;
+  }
+  .hero .sub{
+    font-size: clamp(1.02rem, 2vw, 1.2rem);
+    color: var(--ink-soft);
+    max-width: 46ch;
+    margin: 0 0 32px;
+  }
+  .hero-ctas{ display:flex; gap:14px; flex-wrap:wrap; }
+
+  /* fade-in on load */
+  .fade-up{ animation: fadeUp .7s ease both; }
+  .fade-up.d1{ animation-delay: .05s; }
+  .fade-up.d2{ animation-delay: .15s; }
+  .fade-up.d3{ animation-delay: .25s; }
+  @keyframes fadeUp{
+    from{ opacity:0; transform: translateY(14px); }
+    to{ opacity:1; transform: translateY(0); }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .fade-up{ animation: none; }
+    html{ scroll-behavior: auto; }
+  }
+
+  /* SECTION generic */
+  section{ padding: 72px 0; border-top: 1px solid var(--line); }
+  .section-head{ max-width: 60ch; margin-bottom: 44px; }
+  .section-head h2{ font-size: clamp(1.5rem, 3vw, 2rem); margin: 8px 0 12px; }
+  .section-head p{ color: var(--ink-soft); font-size: 1.02rem; }
+
+  /* CASE STUDY / SLIDER */
+  .compare{
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    max-width: 760px;
+    margin: 0 auto;
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--line);
+    box-shadow: 0 20px 50px -25px rgba(20,18,31,0.35);
+    background:#fff;
+  }
+  .compare-frame{
+    position:absolute; inset:0;
+    overflow:hidden;
+  }
+  .tag{
+    position:absolute; top:14px; left:14px; z-index:3;
+    font-family:'JetBrains Mono',monospace;
+    font-size: 0.72rem;
+    padding: 5px 10px;
+    border-radius: 999px;
+    background: rgba(20,18,31,0.85);
+    color:#fff;
+    letter-spacing: 0.03em;
+  }
+  .tag.after-tag{ background: var(--accent); }
+
+  /* BEFORE mockup (Craigslist-inspired: dense, no hierarchy) */
+  .mock-before{
+    height:100%; width:100%;
+    background:#fdfdfd;
+    font-family: Georgia, serif;
+    padding: 34px 20px 12px;
+    font-size: 12px;
+    color: #003399;
+    overflow:hidden;
+  }
+  .mock-before .mb-title{
+    color:#000; font-weight:bold; font-size:14px; margin-bottom:10px;
+  }
+  .mock-before .mb-row{
+    display:flex; gap:18px; border-bottom:1px solid #ddd; padding:5px 0;
+  }
+  .mock-before .mb-col{ flex:1; }
+  .mock-before .mb-link{ display:block; margin-bottom:4px; text-decoration:underline; }
+  .mock-before .mb-link.visited{ color:#551A8B; }
+  .mock-before .mb-head{ color:#000; font-weight:bold; font-size:11px; margin:8px 0 4px; font-family: Arial, sans-serif;}
+
+  /* AFTER mockup (clean redesign) */
+  .compare-frame.after{
+    clip-path: inset(0 calc(100% - var(--pos, 50%)) 0 0);
+  }
+  .mock-after{
+    height:100%; width:100%;
+    background: linear-gradient(180deg, #ffffff 0%, var(--bg-soft) 100%);
+    font-family: 'Inter', sans-serif;
+    padding: 30px 26px;
+  }
+  .mock-after .ma-nav{
+    display:flex; justify-content:space-between; align-items:center;
+    font-size:11px; font-weight:600; color: var(--ink); margin-bottom: 22px;
+  }
+  .mock-after .ma-pill{
+    background: var(--ink); color:#fff; padding:4px 10px; border-radius:999px; font-size:9px;
+  }
+  .mock-after .ma-h1{
+    font-family:'Space Grotesk',sans-serif; font-weight:700;
+    font-size: 20px; line-height:1.15; max-width: 14ch; color: var(--ink); margin-bottom:8px;
+  }
+  .mock-after .ma-sub{ font-size:11px; color: var(--ink-soft); max-width:26ch; margin-bottom:16px; }
+  .mock-after .ma-cta{
+    display:inline-block; background: var(--accent); color:#fff; font-size:10px; font-weight:600;
+    padding: 8px 16px; border-radius:999px;
+  }
+  .mock-after .ma-cards{ display:flex; gap:8px; margin-top:22px; }
+  .mock-after .ma-card{
+    flex:1; background:#fff; border:1px solid var(--line); border-radius:8px; padding:8px; font-size:8px; color: var(--ink-soft);
+  }
+  .mock-after .ma-card b{ display:block; color:var(--ink); font-size:9px; margin-bottom:4px; font-family:'Space Grotesk',sans-serif;}
+
+  .slider-input{
+    position:absolute; inset:0; z-index:4;
+    width:100%; height:100%;
+    margin:0; opacity:0;
+    cursor: ew-resize;
+  }
+  .handle{
+    position:absolute; top:50%; left: var(--pos, 50%);
+    transform: translate(-50%, -50%);
+    width: 40px; height:40px; border-radius:50%;
+    background:#fff; border: 1px solid var(--line);
+    box-shadow: 0 6px 16px rgba(20,18,31,0.25);
+    display:flex; align-items:center; justify-content:center;
+    z-index:5; pointer-events:none;
+  }
+  .handle::before{ content: "⟷"; font-size: 16px; color: var(--accent-dark); }
+  .divider-line{
+    position:absolute; top:0; bottom:0; left: var(--pos, 50%);
+    width:2px; background:#fff; z-index:4; pointer-events:none;
+    box-shadow: 0 0 0 1px rgba(20,18,31,0.08);
+  }
+  .compare-hint{
+    text-align:center; font-size:0.85rem; color: var(--ink-soft); margin-top:16px;
+  }
+  .compare-caption{
+    text-align:center; font-size:0.8rem; color: var(--ink-soft); margin-top:10px; max-width: 46ch; margin-left:auto; margin-right:auto;
+  }
+
+  /* HOW IT WORKS */
+  .steps{ display:grid; grid-template-columns: repeat(3,1fr); gap: 28px; }
+  .step{ padding: 24px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg-soft); }
+  .step .num{ font-family:'JetBrains Mono',monospace; color: var(--accent-dark); font-size:0.8rem; margin-bottom:12px; }
+  .step h3{ font-size: 1.1rem; margin: 0 0 8px; }
+  .step p{ color: var(--ink-soft); font-size: 0.94rem; margin:0; }
+
+  /* OFFER */
+  .offer{
+    display:grid; grid-template-columns: 1.1fr 1fr; gap: 48px; align-items:center;
+  }
+  .offer-card{
+    background: var(--ink); color:#fff;
+    border-radius: 20px; padding: 40px;
+    position: relative; overflow:hidden;
+  }
+  .offer-card::after{
+    content:""; position:absolute; width:220px; height:220px; background: var(--lime);
+    opacity:0.15; border-radius:50%; top:-80px; right:-80px;
+  }
+  .offer-card .price-label{ font-family:'JetBrains Mono',monospace; font-size:0.8rem; color: var(--lime); text-transform:uppercase; letter-spacing:0.08em; }
+  .offer-card .price{ font-size: 3.4rem; font-weight:700; margin: 10px 0 22px; }
+  .offer-card .price sup{ font-size:1.2rem; top:-1.2em; }
+  .offer-list{ list-style:none; padding:0; margin: 0 0 28px; }
+  .offer-list li{
+    display:flex; gap:10px; align-items:flex-start; font-size:0.95rem; color: rgba(255,255,255,0.85);
+    margin-bottom:12px;
+  }
+  .offer-list li::before{ content:"→"; color: var(--lime); font-weight:700; flex-shrink:0; }
+
+  .offer-side h2{ font-size: 1.6rem; margin: 0 0 14px; }
+  .offer-side p{ color: var(--ink-soft); margin-bottom: 16px; }
+  .offer-side ul{ padding-left: 20px; color: var(--ink-soft); font-size: 0.95rem; }
+  .offer-side li{ margin-bottom: 8px; }
+
+  /* CONTACT */
+  .contact{ text-align:center; }
+  .contact h2{ font-size: clamp(1.6rem, 3.4vw, 2.2rem); margin-bottom: 14px; }
+  .contact p{ color: var(--ink-soft); margin-bottom: 28px; }
+  .contact-links{ display:flex; justify-content:center; gap:16px; flex-wrap:wrap; }
+
+  footer{
+    border-top: 1px solid var(--line);
+    padding: 28px 0 40px;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;
+  }
+
+  @media (max-width: 760px){
+    .offer{ grid-template-columns: 1fr; }
+    .steps{ grid-template-columns: 1fr; }
+    .nav-links{ gap:14px; }
+    .nav-links a:not(.btn){ display:none; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="wrap">
+  <div class="logo">Simo<span>.</span></div>
+  <div class="nav-links">
+    <a href="#case-study">Case study</a>
+    <a href="#how">How it works</a>
+    <a href="#offer" class="btn btn-lime">Get audit — $10</a>
+  </div>
+</nav>
+
+<header class="hero wrap">
+  <span class="eyebrow fade-up">UI/UX for indie founders</span>
+  <h1 class="fade-up d1">Your landing page is losing you signups.</h1>
+  <p class="sub fade-up d2">I redesign landing pages for indie founders — starting with a $10 audit that shows you exactly what's costing you conversions, and how to fix it.</p>
+  <div class="hero-ctas fade-up d3">
+    <a href="#offer" class="btn">Get your $10 audit →</a>
+    <a href="#case-study" class="btn btn-outline">See a redesign ↓</a>
+  </div>
+</header>
+
+<section id="case-study">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Case study</span>
+      <h2>The internet's most famous "ugly" page, reimagined</h2>
+      <p>Craigslist hasn't changed its interface in decades — dense text, no hierarchy, zero visual rest. Here's the same idea, redesigned the way I'd approach any founder's page. Drag the handle.</p>
+    </div>
+
+    <div class="compare" id="compareBox">
+      <span class="tag after-tag">After</span>
+      <span class="tag" style="left:auto; right:14px;">Before</span>
+
+      <div class="compare-frame">
+        <div class="mock-before">
+          <div class="mb-title">craigslist &nbsp; rabat</div>
+          <div class="mb-head">community</div>
+          <div class="mb-row">
+            <div class="mb-col">
+              <a class="mb-link" href="#">activities</a>
+              <a class="mb-link visited" href="#">artists</a>
+              <a class="mb-link" href="#">childcare</a>
+              <a class="mb-link" href="#">classes</a>
+            </div>
+            <div class="mb-col">
+              <a class="mb-link" href="#">events</a>
+              <a class="mb-link visited" href="#">general</a>
+              <a class="mb-link" href="#">groups</a>
+              <a class="mb-link" href="#">local news</a>
+            </div>
+            <div class="mb-col">
+              <a class="mb-link" href="#">lost+found</a>
+              <a class="mb-link visited" href="#">missed connections</a>
+              <a class="mb-link" href="#">pets</a>
+              <a class="mb-link" href="#">volunteers</a>
+            </div>
+          </div>
+          <div class="mb-head">housing</div>
+          <div class="mb-row">
+            <div class="mb-col">
+              <a class="mb-link" href="#">apts / housing</a>
+              <a class="mb-link visited" href="#">rooms / shared</a>
+            </div>
+            <div class="mb-col">
+              <a class="mb-link" href="#">sublets / temporary</a>
+              <a class="mb-link visited" href="#">real estate</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="compare-frame after" id="afterFrame">
+        <div class="mock-after">
+          <div class="ma-nav">
+            <span>rabat.local</span>
+            <span class="ma-pill">Post free</span>
+          </div>
+          <div class="ma-h1">Find what's around you, fast.</div>
+          <div class="ma-sub">Housing, jobs, and community — organized so you can actually find it.</div>
+          <a class="ma-cta" href="#">Browse listings</a>
+          <div class="ma-cards">
+            <div class="ma-card"><b>Housing</b>Apartments &amp; rooms nearby</div>
+            <div class="ma-card"><b>Jobs</b>Local &amp; remote roles</div>
+            <div class="ma-card"><b>Community</b>Events &amp; groups</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider-line" id="dividerLine"></div>
+      <div class="handle" id="handle"></div>
+      <input type="range" min="0" max="100" value="50" class="slider-input" id="sliderInput" aria-label="Drag to compare before and after design">
+    </div>
+    <p class="compare-hint">← drag to compare →</p>
+    <p class="compare-caption">Independent redesign concept for illustration purposes — not affiliated with or endorsed by Craigslist.</p>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Process</span>
+      <h2>Three steps, 48 hours</h2>
+      <p>No calls, no back-and-forth. Just send your link.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="num">01</div>
+        <h3>Send your link</h3>
+        <p>Drop your landing page URL. No forms, no onboarding calls.</p>
+      </div>
+      <div class="step">
+        <div class="num">02</div>
+        <h3>Get your audit</h3>
+        <p>A recorded walkthrough covering layout, copy, and where visitors likely drop off.</p>
+      </div>
+      <div class="step">
+        <div class="num">03</div>
+        <h3>Fix what matters</h3>
+        <p>Walk away with 3 ranked changes — ship them yourself, or have me build them.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="offer">
+  <div class="wrap">
+    <div class="offer">
+      <div class="offer-card">
+        <div class="price-label">First audit</div>
+        <div class="price"><sup>$</sup>10</div>
+        <ul class="offer-list">
+          <li>Full video walkthrough of your landing page</li>
+          <li>3 fixes, ranked by expected impact</li>
+          <li>Delivered within 48 hours</li>
+          <li>Fee credited toward a full redesign if you hire me after</li>
+        </ul>
+        <!-- Replace the href below with your real Gumroad product link, e.g. https://yourname.gumroad.com/l/audit -->
+        <a href="https://gumroad.com/l/REPLACE-WITH-YOUR-LINK" class="btn btn-lime" target="_blank" rel="noopener">Book your audit</a>
+      </div>
+      <div class="offer-side">
+        <h2>Why $10?</h2>
+        <p>Because the real cost isn't the audit — it's guessing why your page isn't converting. $10 removes the risk of finding out.</p>
+        <ul>
+          <li>No retainer, no contract</li>
+          <li>You keep 100% of the fixes either way</li>
+          <li>If we work together after, it's already paid for</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact">
+  <div class="wrap">
+    <h2>Have a page that isn't converting?</h2>
+    <p>Send it over — first look is always free before you even book.</p>
+    <div class="contact-links">
+      <a href="mailto:mohamedboulaiche333@gmail.com" class="btn">mohamedboulaiche333@gmail.com</a>
+      <a href="https://github.com/ounahinho" class="btn btn-outline" target="_blank" rel="noopener">GitHub ↗</a>
+    </div>
+  </div>
+</section>
+
+<footer class="wrap">
+  <span>© 2026 Simo — UI/UX for indie founders</span>
+  <span>Rabat, Morocco</span>
+</footer>
+
+<script>
+  const box = document.getElementById('compareBox');
+  const input = document.getElementById('sliderInput');
+  const afterFrame = document.getElementById('afterFrame');
+  const handle = document.getElementById('handle');
+  const dividerLine = document.getElementById('dividerLine');
+
+  function setPos(val){
+    box.style.setProperty('--pos', val + '%');
+  }
+  input.addEventListener('input', (e) => setPos(e.target.value));
+  setPos(50);
+</script>
+
+</body>
+</html>
